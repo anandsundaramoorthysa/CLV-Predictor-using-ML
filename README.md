@@ -59,7 +59,8 @@ python app.py
 
 ```
 ├── app.py              # Flask app
-├── requirements.txt    # Python deps (includes gunicorn)
+├── pipeline_utils.py   # Shared transformer (required for loading models)
+├── requirements.txt   # Python deps (includes gunicorn)
 ├── Dockerfile          # For Hugging Face Spaces
 ├── .dockerignore       # Keeps build context small
 ├── models/             # Trained pipelines (.pkl) — committed for HF
