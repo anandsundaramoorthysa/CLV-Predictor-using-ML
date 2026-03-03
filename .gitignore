@@ -133,3 +133,6 @@ temp/
 *.temp
 *.bak
 *.backup
+
+templates/about.html.bak
+templates/index.html.bak

@@ -1,18 +1,19 @@
 {
-  "total_rows": 298662,
-  "target_mean": 1367.31,
-  "target_std": 1128.76,
-  "target_min": 10.0,
-  "target_max": 4999.63,
-  "target_p25": 438.68,
-  "target_p50": 1040.75,
-  "target_p75": 2029.1,
+  "total_rows": 180662,
+  "target_mean": 1364.87,
+  "target_std": 1120.32,
+  "target_min": 40.93,
+  "target_max": 4486.79,
+  "target_p25": 439.65,
+  "target_p50": 1041.13,
+  "target_p75": 2025.84,
   "source": "new_retail_data.csv",
   "features": [
     "Age",
     "Gender",
     "Income",
     "Total_Purchases",
+    "Amount",
     "Product_Category",
     "Payment_Method",
     "Shipping_Method",
@@ -21,13 +22,18 @@
     "Feedback",
     "Month",
     "Product_Brand",
-    "Product_Type"
+    "Product_Type",
+    "Tenure_months",
+    "Recency_months"
   ],
   "target": "Total_Amount",
   "numeric_features": [
     "Age",
     "Total_Purchases",
-    "Ratings"
+    "Amount",
+    "Ratings",
+    "Tenure_months",
+    "Recency_months"
   ],
   "categorical_features": [
     "Gender",
@@ -81,18 +87,18 @@
       "Good"
     ],
     "Month": [
-      "April",
-      "August",
-      "December",
-      "February",
       "January",
-      "July",
-      "June",
+      "February",
       "March",
+      "April",
       "May",
-      "November",
+      "June",
+      "July",
+      "August",
+      "September",
       "October",
-      "September"
+      "November",
+      "December"
     ],
     "Product_Brand": [
       "Adidas",

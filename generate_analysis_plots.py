@@ -41,7 +41,7 @@ with open(input_dir / 'feature_importance.json') as f:
     feature_importance_all = json.load(f)
 
 test_pred_df = pd.read_csv(input_dir / 'test_predictions.csv')
-print("  ✓ Data loaded")
+print("  OK Data loaded")
 
 # ============================================================================
 # PLOT 1: CORRELATION ANALYSIS HEATMAP
@@ -82,17 +82,17 @@ for bar in bars2:
 plt.tight_layout()
 plt.savefig(plots_dir / 'correlation_analysis.png', dpi=150, bbox_inches='tight')
 plt.close()
-print("  ✓ correlation_analysis.png saved")
+print("  OK correlation_analysis.png saved")
 
 # ============================================================================
 # PLOT 2: FEATURE IMPORTANCE (RF, GBR, ET side by side)
 # ============================================================================
 print("\n[3] Generating feature importance plot...")
 
-tree_models = ['Random Forest', 'Gradient Boosting', 'Extra Trees']
-colors      = ['#3498db', '#e74c3c', '#2ecc71']
+tree_models = ['Random Forest', 'Gradient Boosting']
+colors      = ['#3498db', '#e74c3c']
 
-fig, axes = plt.subplots(1, 3, figsize=(22, 8))
+fig, axes = plt.subplots(1, 2, figsize=(14, 8))
 fig.suptitle('Feature Importance - Tree-based Models', fontsize=15, fontweight='bold', y=1.02)
 
 for idx, (model_name, color) in enumerate(zip(tree_models, colors)):
@@ -120,7 +120,7 @@ for idx, (model_name, color) in enumerate(zip(tree_models, colors)):
 plt.tight_layout()
 plt.savefig(plots_dir / 'feature_importance.png', dpi=150, bbox_inches='tight')
 plt.close()
-print("  ✓ feature_importance.png saved")
+print("  OK feature_importance.png saved")
 
 # ============================================================================
 # PLOT 3: MODEL PREDICTIONS vs ACTUAL (test sample)
@@ -149,7 +149,7 @@ ax.grid(alpha=0.3)
 plt.tight_layout()
 plt.savefig(plots_dir / 'model_predictions_comparison.png', dpi=150, bbox_inches='tight')
 plt.close()
-print("  ✓ model_predictions_comparison.png saved")
+print("  OK model_predictions_comparison.png saved")
 
 print("\n" + "=" * 80)
 print("PLOTS GENERATED SUCCESSFULLY!")

@@ -1,80 +1,98 @@
 [
   {
+    "feature": "Amount",
+    "pearson": 0.6702,
+    "spearman": 0.699,
+    "interpretation": "Moderate Positive"
+  },
+  {
     "feature": "Total_Purchases",
-    "pearson": 0.6491,
-    "spearman": 0.6511,
+    "pearson": 0.649,
+    "spearman": 0.6505,
     "interpretation": "Moderate Positive"
   },
   {
     "feature": "Age",
-    "pearson": 0.0225,
-    "spearman": 0.0282,
+    "pearson": 0.0242,
+    "spearman": 0.0293,
     "interpretation": "Very Weak Positive"
   },
   {
     "feature": "Ratings",
-    "pearson": -0.0039,
-    "spearman": -0.0043,
+    "pearson": -0.0052,
+    "spearman": -0.006,
     "interpretation": "Very Weak Negative"
   },
   {
     "feature": "Feedback",
-    "pearson": -0.003,
-    "spearman": -0.0018,
+    "pearson": -0.0046,
+    "spearman": -0.0041,
     "interpretation": "Very Weak Negative"
   },
   {
     "feature": "Month",
-    "pearson": -0.0028,
-    "spearman": -0.0028,
+    "pearson": -0.0037,
+    "spearman": -0.0039,
     "interpretation": "Very Weak Negative"
   },
   {
     "feature": "Income",
-    "pearson": 0.0026,
-    "spearman": 0.0006,
+    "pearson": 0.0031,
+    "spearman": 0.0013,
     "interpretation": "Very Weak Positive"
   },
   {
-    "feature": "Product_Type",
-    "pearson": 0.002,
-    "spearman": 0.0024,
-    "interpretation": "Very Weak Positive"
+    "feature": "Tenure_months",
+    "pearson": -0.0031,
+    "spearman": -0.0031,
+    "interpretation": "Very Weak Negative"
   },
   {
     "feature": "Product_Brand",
-    "pearson": 0.0019,
-    "spearman": 0.0026,
+    "pearson": 0.002,
+    "spearman": 0.0031,
+    "interpretation": "Very Weak Positive"
+  },
+  {
+    "feature": "Gender",
+    "pearson": 0.0018,
+    "spearman": 0.003,
+    "interpretation": "Very Weak Positive"
+  },
+  {
+    "feature": "Payment_Method",
+    "pearson": -0.0017,
+    "spearman": -0.0009,
+    "interpretation": "Very Weak Negative"
+  },
+  {
+    "feature": "Product_Type",
+    "pearson": 0.0016,
+    "spearman": 0.002,
+    "interpretation": "Very Weak Positive"
+  },
+  {
+    "feature": "Product_Category",
+    "pearson": 0.001,
+    "spearman": 0.0014,
     "interpretation": "Very Weak Positive"
   },
   {
     "feature": "Customer_Segment",
-    "pearson": 0.0009,
-    "spearman": 0.0005,
+    "pearson": -0.0008,
+    "spearman": -0.0008,
+    "interpretation": "Very Weak Negative"
+  },
+  {
+    "feature": "Recency_months",
+    "pearson": 0.0004,
+    "spearman": 0.0001,
     "interpretation": "Very Weak Positive"
   },
   {
     "feature": "Shipping_Method",
-    "pearson": -0.0007,
-    "spearman": -0.0013,
-    "interpretation": "Very Weak Negative"
-  },
-  {
-    "feature": "Gender",
-    "pearson": -0.0006,
+    "pearson": 0.0,
     "spearman": -0.0004,
-    "interpretation": "Very Weak Negative"
-  },
-  {
-    "feature": "Payment_Method",
-    "pearson": -0.0003,
-    "spearman": 0.0003,
-    "interpretation": "Very Weak Negative"
-  },
-  {
-    "feature": "Product_Category",
-    "pearson": -0.0002,
-    "spearman": -0.0001,
-    "interpretation": "Very Weak Negative"
+    "interpretation": "Very Weak Positive"
   }
 ]

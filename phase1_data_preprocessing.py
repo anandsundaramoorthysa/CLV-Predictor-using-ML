@@ -24,7 +24,8 @@ data_file  = Path("new_retail_data.csv")
 output_dir = Path("outputs")
 output_dir.mkdir(exist_ok=True)
 
-FEATURE_COLS = [
+# Base features (Amount = order/product value; Tenure/Recency added after computation)
+FEATURE_COLS_BASE = [
     'Age', 'Gender', 'Income',
     'Total_Purchases', 'Amount',
     'Product_Category', 'Payment_Method', 'Shipping_Method',
@@ -37,6 +38,8 @@ CAT_COLS     = [
     'Gender', 'Income', 'Product_Category', 'Payment_Method', 'Shipping_Method',
     'Customer_Segment', 'Feedback', 'Month', 'Product_Brand', 'Product_Type'
 ]
+# Extra columns needed only for computing tenure/recency (then dropped)
+AUX_COLS     = ['Date', 'Customer_ID']
 
 # ============================================================================
 # STEP 1: LOAD & INSPECT
@@ -59,13 +62,13 @@ print("\n" + "=" * 80)
 print("STEP 2: COLUMN SELECTION")
 print("=" * 80)
 
-all_needed = FEATURE_COLS + [TARGET_COL]
+all_needed = FEATURE_COLS_BASE + [TARGET_COL] + AUX_COLS
 missing_cols = [c for c in all_needed if c not in df.columns]
 if missing_cols:
     raise ValueError(f"Missing required columns: {missing_cols}")
 
 df_model = df[all_needed].copy()
-print(f"\n  Selected {len(all_needed)} columns: {all_needed}")
+print(f"\n  Selected {len(all_needed)} columns (incl. Date, Customer_ID for tenure/recency)")
 print(f"  Shape after selection: {df_model.shape}")
 
 # ============================================================================
@@ -78,6 +81,10 @@ print("=" * 80)
 for c in NUMERIC_COLS + [TARGET_COL]:
     df_model[c] = pd.to_numeric(df_model[c], errors='coerce')
     print(f"  {c}: converted to numeric")
+
+# Parse Date for tenure/recency
+df_model['Date'] = pd.to_datetime(df_model['Date'], errors='coerce')
+df_model['Customer_ID'] = df_model['Customer_ID'].astype(str).str.strip()
 
 for c in CAT_COLS:
     df_model[c] = df_model[c].astype(str).str.strip()
@@ -92,11 +99,24 @@ print("STEP 4: MISSING VALUE HANDLING")
 print("=" * 80)
 
 before_rows = len(df_model)
-df_model = df_model.dropna().reset_index(drop=True)
+df_model = df_model.dropna(subset=FEATURE_COLS_BASE + [TARGET_COL] + ['Date', 'Customer_ID']).reset_index(drop=True)
 after_rows  = len(df_model)
 print(f"\n  Rows before:  {before_rows:,}")
 print(f"  Rows dropped: {before_rows - after_rows:,}")
 print(f"  Rows after:   {after_rows:,}")
+
+# ============================================================================
+# STEP 4b: TENURE & RECENCY (months) from Date per Customer_ID
+# ============================================================================
+print("\n  Computing Tenure_months and Recency_months per customer...")
+max_date = df_model.groupby('Customer_ID')['Date'].transform('max')
+min_date = df_model.groupby('Customer_ID')['Date'].transform('min')
+df_model['Tenure_months'] = ((max_date - min_date).dt.days / 30.5).clip(lower=0).round(2)
+df_model['Recency_months'] = ((max_date - df_model['Date']).dt.days / 30.5).clip(lower=0).round(2)
+df_model = df_model.drop(columns=['Date', 'Customer_ID'])
+FEATURE_COLS = FEATURE_COLS_BASE + ['Tenure_months', 'Recency_months']
+NUMERIC_COLS = ['Age', 'Total_Purchases', 'Amount', 'Ratings', 'Tenure_months', 'Recency_months']
+print(f"  Added: Tenure_months, Recency_months. Final features: {len(FEATURE_COLS)}")
 
 # ============================================================================
 # STEP 5: VALIDATION
@@ -128,6 +148,20 @@ if neg_purchases > 0:
     df_model = df_model[df_model['Total_Purchases'] >= 0].reset_index(drop=True)
 else:
     print(f"  PASSED: All purchase counts non-negative")
+
+# Amount and tenure/recency non-negative
+df_model = df_model[df_model['Amount'] >= 0].reset_index(drop=True)
+df_model = df_model[(df_model['Tenure_months'] >= 0) & (df_model['Recency_months'] >= 0)].reset_index(drop=True)
+print(f"  PASSED: Amount, Tenure_months, Recency_months non-negative")
+
+# Winsorize target at 1st and 99th percentile to reduce outlier impact on model
+p1, p99 = df_model[TARGET_COL].quantile(0.01), df_model[TARGET_COL].quantile(0.99)
+n_clipped = ((df_model[TARGET_COL] < p1) | (df_model[TARGET_COL] > p99)).sum()
+df_model[TARGET_COL] = df_model[TARGET_COL].clip(lower=p1, upper=p99)
+if n_clipped > 0:
+    print(f"  Winsorized target: {n_clipped:,} values clipped to [P1, P99] = [${p1:.2f}, ${p99:.2f}]")
+else:
+    print(f"  PASSED: No target winsorization needed")
 
 print(f"\n  Categorical value summary:")
 for c in CAT_COLS:
@@ -175,13 +209,13 @@ data_stats = {
 
 with open(output_dir / 'data_stats.json', 'w') as f:
     json.dump(data_stats, f, indent=2)
-print(f"\n  ✓ Statistics saved  → outputs/data_stats.json")
+print(f"\n  OK Statistics saved  -> outputs/data_stats.json")
 
 # ============================================================================
 # STEP 7: SAVE CLEAN DATASET
 # ============================================================================
 df_model.to_csv(output_dir / 'clean_df.csv', index=False)
-print(f"  ✓ Clean dataset saved → outputs/clean_df.csv")
+print(f"  OK Clean dataset saved -> outputs/clean_df.csv")
 
 print("\n" + "=" * 80)
 print("PHASE 1 COMPLETE!")

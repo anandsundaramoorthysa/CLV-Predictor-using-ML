@@ -76,7 +76,7 @@
                             <div class="card-body-modern text-center">
                                 <i class="bi bi-people-fill fs-1 text-info mb-3"></i>
                                 <h5 class="fw-bold">Input Features</h5>
-                                <p class="text-muted mb-0">Age, Gender, Income, Purchases, Category, Payment, Shipping</p>
+                                <p class="text-muted mb-0">Age, Gender, Income, Purchases, Amount, Tenure, Recency, Category, Payment, Shipping</p>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                             <div class="accordion-body">
                                 <ul class="list-unstyled">
                                     <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Correlation Analysis:</strong> Pearson & Spearman correlations with target</li>
-                                    <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Feature Selection:</strong> 7 features (2 numeric + 5 categorical)</li>
+                                    <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Feature Selection:</strong> 16 features (6 numeric + 10 categorical): Age, Gender, Income, Total_Purchases, Amount, Tenure_months, Recency_months, Product_Category, Payment_Method, Shipping_Method, Customer_Segment, Ratings, Feedback, Month, Product_Brand, Product_Type</li>
                                     <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Encoding:</strong> OrdinalEncoder for categoricals (inside model pipeline)</li>
                                     <li class="mb-0"><i class="bi bi-info-circle text-info me-2"></i><strong>Target:</strong> Total_Amount (continuous, regression task)</li>
                                 </ul>
@@ -195,22 +195,6 @@
                                             <div class="card-body-modern">
                                                 <h6 class="fw-bold text-info mb-1"><i class="bi bi-bezier2 me-2"></i>Gradient Boosting</h6>
                                                 <small class="text-muted">100 estimators, lr=0.05</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-lg">
-                                        <div class="card-modern border-top border-4 border-warning">
-                                            <div class="card-body-modern">
-                                                <h6 class="fw-bold text-warning mb-1"><i class="bi bi-tree-fill me-2"></i>Extra Trees</h6>
-                                                <small class="text-muted">100 trees, randomized splits</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-lg">
-                                        <div class="card-modern border-top border-4 border-danger">
-                                            <div class="card-body-modern">
-                                                <h6 class="fw-bold text-danger mb-1"><i class="bi bi-lightning-charge-fill me-2"></i>LightGBM</h6>
-                                                <small class="text-muted">200 estimators, num_leaves=31</small>
                                             </div>
                                         </div>
                                     </div>
@@ -378,12 +362,12 @@
                 </h2>
                 <div class="alert alert-info alert-modern">
                     <i class="bi bi-info-circle-fill me-2"></i>
-                    <small><strong>Random Forest &amp; Extra Trees:</strong> impurity-based (mean decrease in impurity). <strong>Gradient Boosting:</strong> improvement-based importance.</small>
+                    <small><strong>Random Forest:</strong> impurity-based (mean decrease in impurity). <strong>Gradient Boosting:</strong> improvement-based importance.</small>
                 </div>
 
                 <div class="row g-4 mb-4">
                     <!-- Random Forest -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card-modern">
                             <div class="card-header-modern">
                                 <h5><i class="bi bi-tree me-2"></i>Random Forest</h5>
@@ -411,7 +395,7 @@
                     </div>
 
                     <!-- Gradient Boosting -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card-modern">
                             <div class="card-header-modern success">
                                 <h5><i class="bi bi-bezier2 me-2"></i>Gradient Boosting</h5>
@@ -438,33 +422,6 @@
                         </div>
                     </div>
 
-                    <!-- Extra Trees -->
-                    <div class="col-lg-4">
-                        <div class="card-modern">
-                            <div class="card-header-modern info">
-                                <h5><i class="bi bi-tree-fill me-2"></i>Extra Trees</h5>
-                            </div>
-                            <div class="card-body-modern p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-hover mb-0">
-                                        <thead class="table-light">
-                                            <tr><th>#</th><th>Feature</th><th>Importance</th><th>%</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for row in feature_importance_et %}
-                                            <tr>
-                                                <td><span class="badge bg-info">{{ loop.index }}</span></td>
-                                                <td><code class="small">{{ row.feature }}</code></td>
-                                                <td class="small">{{ "%.4f"|format(row.importance) }}</td>
-                                                <td class="small">{{ row.pct }}%</td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="text-center">
@@ -552,11 +509,9 @@
                             <tr>
                                 <th>#</th>
                                 <th class="text-end">Actual ($)</th>
-                                <th class="text-end">Linear Reg.</th>
-                                <th class="text-end">Random Forest</th>
-                                <th class="text-end">Grad. Boosting</th>
-                                <th class="text-end">Extra Trees</th>
-                                <th class="text-end">LightGBM</th>
+                                {% for row in model_comparison %}
+                                <th class="text-end">{{ row.Model }}</th>
+                                {% endfor %}
                             </tr>
                         </thead>
                         <tbody>
@@ -564,11 +519,9 @@
                             <tr>
                                 <td><small class="text-muted">{{ loop.index }}</small></td>
                                 <td class="text-end fw-bold">${{ "{:,.2f}".format(row.Actual) }}</td>
-                                <td class="text-end">${{ "{:,.2f}".format(row['Linear Regression']) }}</td>
-                                <td class="text-end">${{ "{:,.2f}".format(row['Random Forest']) }}</td>
-                                <td class="text-end">${{ "{:,.2f}".format(row['Gradient Boosting']) }}</td>
-                                <td class="text-end">${{ "{:,.2f}".format(row['Extra Trees']) }}</td>
-                                <td class="text-end">${{ "{:,.2f}".format(row['LightGBM']) }}</td>
+                                {% for m in model_comparison %}
+                                <td class="text-end">${{ "{:,.2f}".format(row[m.Model]) }}</td>
+                                {% endfor %}
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -588,7 +541,7 @@
                     <i class="bi bi-people-fill" style="color:#8e44ad;"></i>Compare All Model Predictions
                 </h2>
                 <p class="text-muted mb-4">
-                    Predicted CLV for the last submitted customer input across all 5 trained models.
+                    Predicted CLV for the last submitted customer input across all 3 trained models.
                 </p>
 
                 {% if result and result.all_predictions %}
@@ -648,7 +601,7 @@
                         <div class="pred-bar-row">
                             <div class="pred-bar-label">{{ row.name }}</div>
                             <div class="pred-bar-track">
-                                <div class="pred-bar-fill" style="width: {{ bar_pct }}%"></div>
+                                <div class="pred-bar-fill" data-width-pct="{{ bar_pct | default(0) }}"></div>
                             </div>
                             <div class="pred-bar-val">${{ "{:,.2f}".format(row.prediction) }}</div>
                         </div>
@@ -683,5 +636,10 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.querySelectorAll('.pred-bar-fill[data-width-pct]').forEach(function(el) {
+        el.style.width = el.getAttribute('data-width-pct') + '%';
+      });
+    </script>
 </body>
 </html>

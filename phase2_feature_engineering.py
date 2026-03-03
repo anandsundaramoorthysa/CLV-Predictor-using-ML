@@ -27,10 +27,11 @@ FEATURE_COLS = [
     'Total_Purchases', 'Amount',
     'Product_Category', 'Payment_Method', 'Shipping_Method',
     'Customer_Segment', 'Ratings', 'Feedback',
-    'Month', 'Product_Brand', 'Product_Type'
+    'Month', 'Product_Brand', 'Product_Type',
+    'Tenure_months', 'Recency_months'
 ]
 TARGET_COL   = 'Total_Amount'
-NUMERIC_COLS = ['Age', 'Total_Purchases', 'Amount', 'Ratings']
+NUMERIC_COLS = ['Age', 'Total_Purchases', 'Amount', 'Ratings', 'Tenure_months', 'Recency_months']
 CAT_COLS     = [
     'Gender', 'Income', 'Product_Category', 'Payment_Method', 'Shipping_Method',
     'Customer_Segment', 'Feedback', 'Month', 'Product_Brand', 'Product_Type'
@@ -93,7 +94,7 @@ for row in correlation_data:
 
 with open(output_dir / 'correlation_data.json', 'w') as f:
     json.dump(correlation_data, f, indent=2)
-print(f"\n  ✓ Correlation data saved → outputs/correlation_data.json")
+print(f"\n  OK Correlation data saved -> outputs/correlation_data.json")
 
 # ============================================================================
 # STEP 2: SELECT FEATURES (raw, encoding happens inside model pipeline)
@@ -109,19 +110,19 @@ print(f"  Final shape:     {features_df.shape}")
 print(f"  Missing values:  {features_df.isnull().sum().sum()}")
 
 features_df.to_csv(output_dir / 'features_df.csv', index=False)
-print(f"\n  ✓ Features saved          → outputs/features_df.csv")
+print(f"\n  OK Features saved          -> outputs/features_df.csv")
 
-with open(output_dir / 'feature_columns.pkl', 'wb') as f:
+with open(str(output_dir / 'feature_columns.pkl'), 'wb') as f:
     pickle.dump(FEATURE_COLS, f)
-print(f"  ✓ Feature columns saved   → outputs/feature_columns.pkl")
+print(f"  OK Feature columns saved   -> outputs/feature_columns.pkl")
 
-with open(output_dir / 'numeric_columns.pkl', 'wb') as f:
+with open(str(output_dir / 'numeric_columns.pkl'), 'wb') as f:
     pickle.dump(NUMERIC_COLS, f)
-print(f"  ✓ Numeric columns saved   → outputs/numeric_columns.pkl")
+print(f"  OK Numeric columns saved   -> outputs/numeric_columns.pkl")
 
-with open(output_dir / 'categorical_columns.pkl', 'wb') as f:
+with open(str(output_dir / 'categorical_columns.pkl'), 'wb') as f:
     pickle.dump(CAT_COLS, f)
-print(f"  ✓ Categorical columns saved → outputs/categorical_columns.pkl")
+print(f"  OK Categorical columns saved -> outputs/categorical_columns.pkl")
 
 print("\n" + "=" * 80)
 print("PHASE 2 COMPLETE!")

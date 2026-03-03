@@ -1,5 +1,5 @@
 {
-  "best_model": "Linear Regression",
-  "best_val_rmse": 857.9274,
-  "best_val_mae": 857.9274
+  "best_model": "Gradient Boosting",
+  "best_val_rmse": 114.0521,
+  "best_val_mae": 85.0601
 }

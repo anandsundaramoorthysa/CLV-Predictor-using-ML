@@ -67,9 +67,9 @@ y_val.to_csv(  output_dir / 'y_val.csv',   index=False)
 X_test.to_csv( output_dir / 'X_test.csv',  index=False)
 y_test.to_csv( output_dir / 'y_test.csv',  index=False)
 
-print("  ✓ X_train.csv, y_train.csv saved")
-print("  ✓ X_val.csv,   y_val.csv   saved")
-print("  ✓ X_test.csv,  y_test.csv  saved")
+print("  OK X_train.csv, y_train.csv saved")
+print("  OK X_val.csv,   y_val.csv   saved")
+print("  OK X_test.csv,  y_test.csv  saved")
 
 print("\n" + "=" * 80)
 print("PHASE 3 COMPLETE!")

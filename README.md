@@ -16,7 +16,7 @@ A Flask web app that predicts **Customer Lifetime Value** (total amount a custom
 ## Features
 
 - **CLV prediction**: Predict total spend from age, gender, income, purchases, product category, payment/shipping, segment, ratings, feedback, month, brand, and product type.
-- **Five models**: Linear Regression, Random Forest, Gradient Boosting, Extra Trees, LightGBM — best model (by validation RMSE) is used for the main prediction.
+- **Three models**: Linear Regression, Random Forest, Gradient Boosting — best model (by validation RMSE) is used for the main prediction.
 - **Segment label**: Automatically classifies prediction as Low / Medium / High value customer using data percentiles.
 - **About page**: Model comparison, correlation analysis, feature importance, and test-set predictions.
 
@@ -72,7 +72,7 @@ python app.py
 ## Requirements
 
 - Python 3.9+
-- Dependencies in `requirements.txt` (Flask, pandas, scikit-learn, LightGBM, gunicorn, etc.)
+- Dependencies in `requirements.txt` (Flask, pandas, scikit-learn, gunicorn, etc.)
 
 ## License
 
