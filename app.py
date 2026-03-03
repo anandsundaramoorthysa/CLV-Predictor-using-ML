@@ -99,17 +99,23 @@ def interpret_clv(value):
 # ROUTES
 # ============================================================================
 
+def _index_context(result=None, form_error=None):
+    """Shared context for index page (used by index and predict routes)."""
+    return {
+        'best_model': best_model_name,
+        'best_model_rmse': best_val_rmse,
+        'best_model_r2': best_val_r2,
+        'options': FORM_OPTIONS,
+        'result': result,
+        'form_error': form_error,
+    }
+
+
 @app.route('/')
 def index():
     result = session.get('last_result')
-    return render_template(
-        'index.html',
-        best_model=best_model_name,
-        best_model_rmse=best_val_rmse,
-        best_model_r2=best_val_r2,
-        options=FORM_OPTIONS,
-        result=result
-    )
+    form_error = session.pop('form_error', None)
+    return render_template('index.html', **_index_context(result=result, form_error=form_error))
 
 
 @app.route('/predict', methods=['POST'])
@@ -136,8 +142,10 @@ def predict():
                     product_category, payment_method, shipping_method,
                     customer_segment, ratings, feedback, month,
                     product_brand, product_type]):
-            session['form_error'] = 'Please fill in all fields.'
-            return redirect(url_for('index'))
+            return render_template(
+                'index.html',
+                **_index_context(result=None, form_error='Please fill in all fields.')
+            ), 400
 
         # Column order must match feature_columns.pkl (Phase 2)
         input_df = pd.DataFrame([{
@@ -178,7 +186,7 @@ def predict():
                             all_preds[0]['prediction'])
         label, color = interpret_clv(best_pred)
 
-        session['last_result'] = {
+        result_data = {
             'best_prediction': best_pred,
             'label':           label,
             'label_color':     color,
@@ -202,11 +210,15 @@ def predict():
                 'Product Type':     product_type,
             }
         }
-        return redirect(url_for('index'))
+        session['last_result'] = result_data
+        # Render index with result in response (no redirect) so it works in iframes (e.g. Hugging Face Spaces)
+        return render_template('index.html', **_index_context(result=result_data))
 
     except Exception as e:
-        session['form_error'] = f'Prediction error: {str(e)}'
-        return redirect(url_for('index'))
+        return render_template(
+            'index.html',
+            **_index_context(result=None, form_error=f'Prediction error: {str(e)}')
+        ), 500
 
 
 @app.route('/about')
