@@ -1,0 +1,153 @@
+{
+  "total_rows": 298662,
+  "target_mean": 1367.31,
+  "target_std": 1128.76,
+  "target_min": 10.0,
+  "target_max": 4999.63,
+  "target_p25": 438.68,
+  "target_p50": 1040.75,
+  "target_p75": 2029.1,
+  "source": "new_retail_data.csv",
+  "features": [
+    "Age",
+    "Gender",
+    "Income",
+    "Total_Purchases",
+    "Product_Category",
+    "Payment_Method",
+    "Shipping_Method",
+    "Customer_Segment",
+    "Ratings",
+    "Feedback",
+    "Month",
+    "Product_Brand",
+    "Product_Type"
+  ],
+  "target": "Total_Amount",
+  "numeric_features": [
+    "Age",
+    "Total_Purchases",
+    "Ratings"
+  ],
+  "categorical_features": [
+    "Gender",
+    "Income",
+    "Product_Category",
+    "Payment_Method",
+    "Shipping_Method",
+    "Customer_Segment",
+    "Feedback",
+    "Month",
+    "Product_Brand",
+    "Product_Type"
+  ],
+  "category_values": {
+    "Gender": [
+      "Female",
+      "Male"
+    ],
+    "Income": [
+      "High",
+      "Low",
+      "Medium"
+    ],
+    "Product_Category": [
+      "Books",
+      "Clothing",
+      "Electronics",
+      "Grocery",
+      "Home Decor"
+    ],
+    "Payment_Method": [
+      "Cash",
+      "Credit Card",
+      "Debit Card",
+      "PayPal"
+    ],
+    "Shipping_Method": [
+      "Express",
+      "Same-Day",
+      "Standard"
+    ],
+    "Customer_Segment": [
+      "New",
+      "Premium",
+      "Regular"
+    ],
+    "Feedback": [
+      "Average",
+      "Bad",
+      "Excellent",
+      "Good"
+    ],
+    "Month": [
+      "April",
+      "August",
+      "December",
+      "February",
+      "January",
+      "July",
+      "June",
+      "March",
+      "May",
+      "November",
+      "October",
+      "September"
+    ],
+    "Product_Brand": [
+      "Adidas",
+      "Apple",
+      "Bed Bath & Beyond",
+      "BlueStar",
+      "Coca-Cola",
+      "HarperCollins",
+      "Home Depot",
+      "IKEA",
+      "Mitsubhisi",
+      "Nestle",
+      "Nike",
+      "Penguin Books",
+      "Pepsi",
+      "Random House",
+      "Samsung",
+      "Sony",
+      "Whirepool",
+      "Zara"
+    ],
+    "Product_Type": [
+      "Bathroom",
+      "Bedding",
+      "BlueStar AC",
+      "Children's",
+      "Chocolate",
+      "Coffee",
+      "Decorations",
+      "Dress",
+      "Fiction",
+      "Fridge",
+      "Furniture",
+      "Headphones",
+      "Jacket",
+      "Jeans",
+      "Juice",
+      "Kitchen",
+      "Laptop",
+      "Lighting",
+      "Literature",
+      "Mitsubishi 1.5 Ton 3 Star Split AC",
+      "Non-Fiction",
+      "Shirt",
+      "Shoes",
+      "Shorts",
+      "Smartphone",
+      "Snacks",
+      "Soft Drink",
+      "T-shirt",
+      "Tablet",
+      "Television",
+      "Thriller",
+      "Tools",
+      "Water"
+    ]
+  }
+}

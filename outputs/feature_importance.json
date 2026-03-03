@@ -1,0 +1,270 @@
+{
+  "Random Forest": [
+    {
+      "feature": "Total_Purchases",
+      "importance": 0.9293,
+      "pct": 92.9
+    },
+    {
+      "feature": "Age",
+      "importance": 0.0165,
+      "pct": 1.6
+    },
+    {
+      "feature": "Month",
+      "importance": 0.009,
+      "pct": 0.9
+    },
+    {
+      "feature": "Product_Type",
+      "importance": 0.0088,
+      "pct": 0.9
+    },
+    {
+      "feature": "Product_Brand",
+      "importance": 0.0063,
+      "pct": 0.6
+    },
+    {
+      "feature": "Payment_Method",
+      "importance": 0.0052,
+      "pct": 0.5
+    },
+    {
+      "feature": "Shipping_Method",
+      "importance": 0.0042,
+      "pct": 0.4
+    },
+    {
+      "feature": "Ratings",
+      "importance": 0.0041,
+      "pct": 0.4
+    },
+    {
+      "feature": "Income",
+      "importance": 0.0038,
+      "pct": 0.4
+    },
+    {
+      "feature": "Customer_Segment",
+      "importance": 0.0038,
+      "pct": 0.4
+    },
+    {
+      "feature": "Product_Category",
+      "importance": 0.0034,
+      "pct": 0.3
+    },
+    {
+      "feature": "Feedback",
+      "importance": 0.0031,
+      "pct": 0.3
+    },
+    {
+      "feature": "Gender",
+      "importance": 0.0025,
+      "pct": 0.2
+    }
+  ],
+  "Gradient Boosting": [
+    {
+      "feature": "Total_Purchases",
+      "importance": 0.9707,
+      "pct": 97.1
+    },
+    {
+      "feature": "Age",
+      "importance": 0.0069,
+      "pct": 0.7
+    },
+    {
+      "feature": "Product_Type",
+      "importance": 0.0046,
+      "pct": 0.5
+    },
+    {
+      "feature": "Month",
+      "importance": 0.0039,
+      "pct": 0.4
+    },
+    {
+      "feature": "Product_Brand",
+      "importance": 0.0031,
+      "pct": 0.3
+    },
+    {
+      "feature": "Ratings",
+      "importance": 0.0019,
+      "pct": 0.2
+    },
+    {
+      "feature": "Payment_Method",
+      "importance": 0.0017,
+      "pct": 0.2
+    },
+    {
+      "feature": "Shipping_Method",
+      "importance": 0.0014,
+      "pct": 0.1
+    },
+    {
+      "feature": "Customer_Segment",
+      "importance": 0.0014,
+      "pct": 0.1
+    },
+    {
+      "feature": "Income",
+      "importance": 0.0013,
+      "pct": 0.1
+    },
+    {
+      "feature": "Feedback",
+      "importance": 0.0012,
+      "pct": 0.1
+    },
+    {
+      "feature": "Product_Category",
+      "importance": 0.001,
+      "pct": 0.1
+    },
+    {
+      "feature": "Gender",
+      "importance": 0.0009,
+      "pct": 0.1
+    }
+  ],
+  "Extra Trees": [
+    {
+      "feature": "Total_Purchases",
+      "importance": 0.9628,
+      "pct": 96.3
+    },
+    {
+      "feature": "Age",
+      "importance": 0.0049,
+      "pct": 0.5
+    },
+    {
+      "feature": "Month",
+      "importance": 0.0038,
+      "pct": 0.4
+    },
+    {
+      "feature": "Product_Type",
+      "importance": 0.0037,
+      "pct": 0.4
+    },
+    {
+      "feature": "Payment_Method",
+      "importance": 0.0033,
+      "pct": 0.3
+    },
+    {
+      "feature": "Product_Brand",
+      "importance": 0.0033,
+      "pct": 0.3
+    },
+    {
+      "feature": "Shipping_Method",
+      "importance": 0.003,
+      "pct": 0.3
+    },
+    {
+      "feature": "Customer_Segment",
+      "importance": 0.0028,
+      "pct": 0.3
+    },
+    {
+      "feature": "Product_Category",
+      "importance": 0.0028,
+      "pct": 0.3
+    },
+    {
+      "feature": "Income",
+      "importance": 0.0028,
+      "pct": 0.3
+    },
+    {
+      "feature": "Ratings",
+      "importance": 0.0026,
+      "pct": 0.3
+    },
+    {
+      "feature": "Feedback",
+      "importance": 0.0022,
+      "pct": 0.2
+    },
+    {
+      "feature": "Gender",
+      "importance": 0.002,
+      "pct": 0.2
+    }
+  ],
+  "LightGBM": [
+    {
+      "feature": "Age",
+      "importance": 4962.0,
+      "pct": 16.0
+    },
+    {
+      "feature": "Product_Type",
+      "importance": 3972.0,
+      "pct": 12.8
+    },
+    {
+      "feature": "Total_Purchases",
+      "importance": 3742.0,
+      "pct": 12.1
+    },
+    {
+      "feature": "Month",
+      "importance": 3464.0,
+      "pct": 11.2
+    },
+    {
+      "feature": "Product_Brand",
+      "importance": 2475.0,
+      "pct": 8.0
+    },
+    {
+      "feature": "Payment_Method",
+      "importance": 1983.0,
+      "pct": 6.4
+    },
+    {
+      "feature": "Ratings",
+      "importance": 1865.0,
+      "pct": 6.0
+    },
+    {
+      "feature": "Shipping_Method",
+      "importance": 1662.0,
+      "pct": 5.4
+    },
+    {
+      "feature": "Customer_Segment",
+      "importance": 1594.0,
+      "pct": 5.1
+    },
+    {
+      "feature": "Feedback",
+      "importance": 1550.0,
+      "pct": 5.0
+    },
+    {
+      "feature": "Income",
+      "importance": 1519.0,
+      "pct": 4.9
+    },
+    {
+      "feature": "Product_Category",
+      "importance": 1256.0,
+      "pct": 4.1
+    },
+    {
+      "feature": "Gender",
+      "importance": 956.0,
+      "pct": 3.1
+    }
+  ]
+}

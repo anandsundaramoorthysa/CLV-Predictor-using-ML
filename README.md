@@ -1,109 +1,79 @@
-# Machine Learning Analytics System
+---
+title: Customer Lifetime Value (CLV) Predictor
+emoji: 📈
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+---
 
-A comprehensive Flask-based web application for automated machine learning analysis and business insights generation.
+# Customer Lifetime Value (CLV) Predictor
+
+A Flask web app that predicts **Customer Lifetime Value** (total amount a customer is likely to spend) using pre-trained machine learning models. Enter customer and transaction details to get an instant CLV prediction and segment (Low / Medium / High value).
 
 ## Features
 
-- **Automated Data Preprocessing**: Handles missing values, encoding, scaling, and feature engineering
-- **Multiple ML Models**: Trains Linear Regression, Random Forest, and Gradient Boosting models
-- **Automatic Model Selection**: Selects the best model based on RMSE, MAE, and R² scores
-- **Business Insights**: Generates customer segmentation, CLV prediction, churn analysis, market basket analysis, and sales forecasting
-- **Technical Analysis**: Detailed model evaluation and performance metrics
+- **CLV prediction**: Predict total spend from age, gender, income, purchases, product category, payment/shipping, segment, ratings, feedback, month, brand, and product type.
+- **Five models**: Linear Regression, Random Forest, Gradient Boosting, Extra Trees, LightGBM — best model (by validation RMSE) is used for the main prediction.
+- **Segment label**: Automatically classifies prediction as Low / Medium / High value customer using data percentiles.
+- **About page**: Model comparison, correlation analysis, feature importance, and test-set predictions.
 
-## Installation
+## Run locally
 
-1. **Clone or navigate to the project directory**
-
-2. **Create a virtual environment (recommended)**
-   ```bash
-   python -m venv venv
-   ```
-
-3. **Activate the virtual environment**
-   - Windows:
-     ```bash
-     venv\Scripts\activate
-     ```
-   - Linux/Mac:
-     ```bash
-     source venv/bin/activate
-     ```
-
-4. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Running the Application
-
-1. **Start the Flask server**
-   ```bash
-   python app.py
-   ```
-
-2. **Open your browser and navigate to**
-   ```
-   http://localhost:5000
-   ```
-
-## Usage
-
-1. **Upload Dataset**: Click "Choose CSV or Excel file" and select your dataset
-2. **Analyze**: Click "Upload & Analyze" to process your data
-3. **View Insights**: Business insights will appear on the home page
-4. **Technical Analysis**: Click "View Technical Analysis" to see detailed model evaluation
-
-## Dataset Requirements
-
-- **Format**: CSV (.csv) or Excel (.xlsx, .xls)
-- **Size**: Maximum 16MB
-- **Minimum Rows**: At least 10 rows
-- **Columns**: Should contain both numerical and categorical columns for best results
-
-## Project Structure
-
-```
-Marketing_Project/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── README.md             # This file
-├── templates/
-│   ├── home.html         # Home page template
-│   └── analysis.html     # Analysis page template
-├── static/
-│   ├── css/
-│   │   └── style.css     # Styling
-│   └── plots/            # Generated visualizations
-└── uploads/              # Uploaded files (created automatically)
+```bash
+python -m venv venv
+# Windows: venv\Scripts\activate
+# Linux/Mac: source venv/bin/activate
+pip install -r requirements.txt
+python app.py
+# Open http://localhost:5000
 ```
 
-## Technical Details
+## Deploy on Hugging Face Spaces
 
-### Models Trained
-1. **Linear Regression**: Baseline linear model
-2. **Random Forest**: Ensemble method with 100 trees
-3. **Gradient Boosting**: Sequential ensemble with 100 estimators
+1. Create a new Space at [huggingface.co/new-space](https://huggingface.co/new-space).
+2. Choose **Docker** as the SDK.
+3. Clone your Space repo and push this project (including `models/`, `outputs/`, `saved_model/`, and generated files in `static/`):
 
-### Evaluation Metrics
-- **RMSE**: Root Mean Squared Error
-- **MAE**: Mean Absolute Error
-- **R² Score**: Coefficient of Determination
+   ```bash
+   git clone https://huggingface.co/spaces/YOUR_USERNAME/YOUR_SPACE_NAME
+   cd YOUR_SPACE_NAME
+   cp -r /path/to/Marketing_Project/* .
+   git add .
+   git commit -m "Add CLV Predictor app"
+   git push
+   ```
 
-### Business Insights Generated
-1. Customer Segmentation (KMeans clustering)
-2. Customer Lifetime Value (CLV) Prediction
-3. Churn Prediction
-4. Market Basket Analysis (Apriori algorithm)
-5. Sales/Demand Forecasting
+4. Ensure these are **committed** (not in `.gitignore`) so the Space can run:
+   - `models/*.pkl`
+   - `outputs/` (all JSON, CSV, pkl)
+   - `saved_model/`
+   - `static/style.css`, `static/correlation_analysis.png`, `static/feature_importance.png`, `static/model_predictions_comparison.png`
+   - `templates/`, `app.py`, `requirements.txt`, `Dockerfile`
 
-## Notes
+5. The Space will build the Docker image and serve the app on port **7860**.
 
-- The application automatically detects column types (numerical, categorical, date)
-- Missing values are handled automatically (mean for numerical, mode for categorical)
-- The best model is selected automatically based on combined performance metrics
-- All visualizations are saved in `static/plots/` directory
+## Project structure (for deployment)
+
+```
+├── app.py              # Flask app
+├── requirements.txt    # Python deps (includes gunicorn)
+├── Dockerfile          # For Hugging Face Spaces
+├── .dockerignore       # Keeps build context small
+├── models/             # Trained pipelines (.pkl) — committed for HF
+├── outputs/            # Evaluation, stats, form options — committed for HF
+├── saved_model/        # Legacy stats — committed for HF
+├── templates/          # HTML
+└── static/             # CSS and generated PNGs
+```
+
+## Requirements
+
+- Python 3.9+
+- Dependencies in `requirements.txt` (Flask, pandas, scikit-learn, LightGBM, gunicorn, etc.)
 
 ## License
 
-This project is created for academic/educational purposes.
-
+MIT / academic use.

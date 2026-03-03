@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Customer Lifetime Value Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-top">
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+            <a class="navbar-brand-custom" href="/">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>CLV Predictor</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-nav-custom ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="bi bi-house-door-fill me-2"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">
+                            <i class="bi bi-info-circle-fill me-2"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+
+            <!-- ===== PROJECT OBJECTIVE ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-bullseye" style="color:#667eea;"></i>Project Objective
+                </h2>
+                <p class="lead">
+                    This machine learning system predicts <strong>Customer Lifetime Value (CLV)</strong> —
+                    the total amount a customer is likely to spend — using retail transaction data.
+                </p>
+                <div class="row g-3 mt-2">
+                    <div class="col-md-4">
+                        <div class="card-modern h-100 border-top border-4 border-primary">
+                            <div class="card-body-modern text-center">
+                                <i class="bi bi-cpu-fill fs-1 text-primary mb-3"></i>
+                                <h5 class="fw-bold">ML Prediction</h5>
+                                <p class="text-muted mb-0">Total Amount spent by customer (regression)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-modern h-100 border-top border-4 border-success">
+                            <div class="card-body-modern text-center">
+                                <i class="bi bi-award-fill fs-1 text-success mb-3"></i>
+                                <h5 class="fw-bold">CLV Classification</h5>
+                                <p class="text-muted mb-0">Low / Medium / High value customer segments</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-modern h-100 border-top border-4 border-info">
+                            <div class="card-body-modern text-center">
+                                <i class="bi bi-people-fill fs-1 text-info mb-3"></i>
+                                <h5 class="fw-bold">Input Features</h5>
+                                <p class="text-muted mb-0">Age, Gender, Income, Purchases, Category, Payment, Shipping</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PHASE-WISE METHODOLOGY ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-list-check" style="color:#11998e;"></i>Phase-wise Methodology
+                </h2>
+                <div class="accordion accordion-modern" id="methodologyAccordion">
+
+                    <div class="accordion-item border-0 mb-3">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#phase1">
+                                <i class="bi bi-1-circle-fill me-2"></i>Phase 1: Data Preprocessing
+                            </button>
+                        </h3>
+                        <div id="phase1" class="accordion-collapse collapse show" data-bs-parent="#methodologyAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Load and inspect retail dataset (302,010 rows, 30 columns)</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Select relevant feature and target columns</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Convert data types (numeric, categorical)</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Handle missing values (drop rows with nulls)</li>
+                                    <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>Validate data (age range, negative values, categorical consistency)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0 mb-3">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#phase2">
+                                <i class="bi bi-2-circle-fill me-2"></i>Phase 2: Feature Engineering
+                            </button>
+                        </h3>
+                        <div id="phase2" class="accordion-collapse collapse" data-bs-parent="#methodologyAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Correlation Analysis:</strong> Pearson & Spearman correlations with target</li>
+                                    <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Feature Selection:</strong> 7 features (2 numeric + 5 categorical)</li>
+                                    <li class="mb-2"><i class="bi bi-graph-up text-primary me-2"></i><strong>Encoding:</strong> OrdinalEncoder for categoricals (inside model pipeline)</li>
+                                    <li class="mb-0"><i class="bi bi-info-circle text-info me-2"></i><strong>Target:</strong> Total_Amount (continuous, regression task)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0 mb-3">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#phase3">
+                                <i class="bi bi-3-circle-fill me-2"></i>Phase 3: Train / Validation / Test Split
+                            </button>
+                        </h3>
+                        <div id="phase3" class="accordion-collapse collapse" data-bs-parent="#methodologyAccordion">
+                            <div class="accordion-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="card-modern h-100 border-start border-4 border-primary">
+                                            <div class="card-body-modern">
+                                                <h6 class="text-primary fw-bold mb-2"><i class="bi bi-diagram-3 me-2"></i>Train</h6>
+                                                <p class="mb-0">70% of data<br><small class="text-muted">~211,407 rows (random, seed=42)</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card-modern h-100 border-start border-4 border-warning">
+                                            <div class="card-body-modern">
+                                                <h6 class="text-warning fw-bold mb-2"><i class="bi bi-clipboard-check me-2"></i>Validation</h6>
+                                                <p class="mb-0">15% of data<br><small class="text-muted">~45,302 rows (model selection)</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card-modern h-100 border-start border-4 border-danger">
+                                            <div class="card-body-modern">
+                                                <h6 class="text-danger fw-bold mb-2"><i class="bi bi-graph-up me-2"></i>Test</h6>
+                                                <p class="mb-0">15% of data<br><small class="text-muted">~45,302 rows (final evaluation)</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0 mb-3">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#phase4">
+                                <i class="bi bi-4-circle-fill me-2"></i>Phase 4: Model Training
+                            </button>
+                        </h3>
+                        <div id="phase4" class="accordion-collapse collapse" data-bs-parent="#methodologyAccordion">
+                            <div class="accordion-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4 col-lg">
+                                        <div class="card-modern border-top border-4 border-primary">
+                                            <div class="card-body-modern">
+                                                <h6 class="fw-bold text-primary mb-1"><i class="bi bi-bar-chart me-2"></i>Linear Regression</h6>
+                                                <small class="text-muted">Baseline model with StandardScaler</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg">
+                                        <div class="card-modern border-top border-4 border-success">
+                                            <div class="card-body-modern">
+                                                <h6 class="fw-bold text-success mb-1"><i class="bi bi-tree me-2"></i>Random Forest</h6>
+                                                <small class="text-muted">100 trees, max_depth=8</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg">
+                                        <div class="card-modern border-top border-4 border-info">
+                                            <div class="card-body-modern">
+                                                <h6 class="fw-bold text-info mb-1"><i class="bi bi-bezier2 me-2"></i>Gradient Boosting</h6>
+                                                <small class="text-muted">100 estimators, lr=0.05</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg">
+                                        <div class="card-modern border-top border-4 border-warning">
+                                            <div class="card-body-modern">
+                                                <h6 class="fw-bold text-warning mb-1"><i class="bi bi-tree-fill me-2"></i>Extra Trees</h6>
+                                                <small class="text-muted">100 trees, randomized splits</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg">
+                                        <div class="card-modern border-top border-4 border-danger">
+                                            <div class="card-body-modern">
+                                                <h6 class="fw-bold text-danger mb-1"><i class="bi bi-lightning-charge-fill me-2"></i>LightGBM</h6>
+                                                <small class="text-muted">200 estimators, num_leaves=31</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info alert-modern mt-3 mb-0">
+                                    <i class="bi bi-info-circle-fill me-2"></i>
+                                    <strong>Evaluation metrics:</strong> RMSE (lower = better), MAE, R² on Train, Validation, and Test sets. Best model selected by lowest Validation RMSE.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item border-0">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#phase5">
+                                <i class="bi bi-5-circle-fill me-2"></i>Phase 5: Flask Web Application
+                            </button>
+                        </h3>
+                        <div id="phase5" class="accordion-collapse collapse" data-bs-parent="#methodologyAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Models loaded at startup from pre-trained <code>.pkl</code> files</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Home page: prediction form + best model result</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>About page: full analytics (model comparison, correlations, feature importance)</li>
+                                    <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>CLV classification: Low / Medium / High based on 25th and 75th percentiles</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== DATA STATISTICS ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-database" style="color:#4facfe;"></i>Data Source &amp; Statistics
+                </h2>
+                {% if data_stats %}
+                <div class="row g-3">
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Source File</div>
+                            <div class="metric-value-static small">{{ data_stats.source }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Total Rows</div>
+                            <div class="metric-value-static">{{ "{:,}".format(data_stats.total_rows) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Target Column</div>
+                            <div class="metric-value-static">{{ data_stats.target }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Mean CLV</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_mean) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Std Dev</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_std) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Min</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_min) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Max</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_max) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">Median (P50)</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_p50) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">P25 (Low threshold)</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_p25) }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card-static">
+                            <div class="metric-label">P75 (High threshold)</div>
+                            <div class="metric-value-static">${{ "{:,.2f}".format(data_stats.target_p75) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <strong class="text-muted">Training Features:</strong>
+                    <div class="mt-2">
+                        {% for f in data_stats.features %}
+                        <span class="feature-tag">{{ f }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- ===== CORRELATION ANALYSIS ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-link-45deg" style="color:#f39c12;"></i>Correlation Analysis Results
+                </h2>
+                <p class="text-muted mb-4">
+                    Pearson (linear) and Spearman (rank-based) correlation of each feature with <strong>Total Amount (CLV)</strong>.
+                </p>
+                {% if correlation_data %}
+                <div class="table-responsive mb-4">
+                    <table class="table table-modern table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th class="text-center">Pearson Correlation</th>
+                                <th class="text-center">Spearman Correlation</th>
+                                <th class="text-center">Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in correlation_data %}
+                            <tr>
+                                <td><strong>{{ row.feature }}</strong></td>
+                                <td class="text-center">
+                                    <span class="badge {{ 'bg-success' if row.pearson > 0.2 else ('bg-danger' if row.pearson < -0.2 else 'bg-secondary') }} badge-modern">
+                                        {{ row.pearson }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge {{ 'bg-success' if row.spearman > 0.2 else ('bg-danger' if row.spearman < -0.2 else 'bg-secondary') }} badge-modern">
+                                        {{ row.spearman }}
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge-modern badge bg-light text-dark border">{{ row.interpretation }}</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='correlation_analysis.png') }}"
+                         alt="Correlation Analysis" class="plot-image">
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- ===== FEATURE IMPORTANCE ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-bar-chart-fill" style="color:#e74c3c;"></i>Feature Importance Analysis
+                </h2>
+                <div class="alert alert-info alert-modern">
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    <small><strong>Random Forest &amp; Extra Trees:</strong> impurity-based (mean decrease in impurity). <strong>Gradient Boosting:</strong> improvement-based importance.</small>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <!-- Random Forest -->
+                    <div class="col-lg-4">
+                        <div class="card-modern">
+                            <div class="card-header-modern">
+                                <h5><i class="bi bi-tree me-2"></i>Random Forest</h5>
+                            </div>
+                            <div class="card-body-modern p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr><th>#</th><th>Feature</th><th>Importance</th><th>%</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in feature_importance_rf %}
+                                            <tr>
+                                                <td><span class="badge bg-primary">{{ loop.index }}</span></td>
+                                                <td><code class="small">{{ row.feature }}</code></td>
+                                                <td class="small">{{ "%.4f"|format(row.importance) }}</td>
+                                                <td class="small">{{ row.pct }}%</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gradient Boosting -->
+                    <div class="col-lg-4">
+                        <div class="card-modern">
+                            <div class="card-header-modern success">
+                                <h5><i class="bi bi-bezier2 me-2"></i>Gradient Boosting</h5>
+                            </div>
+                            <div class="card-body-modern p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr><th>#</th><th>Feature</th><th>Importance</th><th>%</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in feature_importance_gbr %}
+                                            <tr>
+                                                <td><span class="badge bg-success">{{ loop.index }}</span></td>
+                                                <td><code class="small">{{ row.feature }}</code></td>
+                                                <td class="small">{{ "%.4f"|format(row.importance) }}</td>
+                                                <td class="small">{{ row.pct }}%</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Extra Trees -->
+                    <div class="col-lg-4">
+                        <div class="card-modern">
+                            <div class="card-header-modern info">
+                                <h5><i class="bi bi-tree-fill me-2"></i>Extra Trees</h5>
+                            </div>
+                            <div class="card-body-modern p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr><th>#</th><th>Feature</th><th>Importance</th><th>%</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in feature_importance_et %}
+                                            <tr>
+                                                <td><span class="badge bg-info">{{ loop.index }}</span></td>
+                                                <td><code class="small">{{ row.feature }}</code></td>
+                                                <td class="small">{{ "%.4f"|format(row.importance) }}</td>
+                                                <td class="small">{{ row.pct }}%</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='feature_importance.png') }}"
+                         alt="Feature Importance" class="plot-image">
+                </div>
+            </div>
+
+            <!-- ===== MODEL COMPARISON ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-trophy-fill" style="color:#FFD700;"></i>Model Performance Comparison
+                </h2>
+
+                <div class="alert alert-success alert-modern">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-award-fill fs-3 me-3"></i>
+                        <div>
+                            <strong class="fs-5">Best Model: {{ best_model }}</strong><br>
+                            <small>Selected by Lowest Validation RMSE: ${{ best_model_rmse }}</small><br>
+                            <small>Validation R²: {{ "%.4f"|format(best_model_r2) }} &nbsp;|&nbsp; Validation MAE: ${{ "%.2f"|format(best_model_mae) }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-light alert-modern">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <small>RMSE and MAE are in USD (lower is better). R² closer to 1.0 is better. Best model is highlighted in green.</small>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-modern table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th class="text-center">Train RMSE</th>
+                                <th class="text-center">Train MAE</th>
+                                <th class="text-center">Train R²</th>
+                                <th class="text-center">Val RMSE</th>
+                                <th class="text-center">Val MAE</th>
+                                <th class="text-center">Val R²</th>
+                                <th class="text-center">Test RMSE</th>
+                                <th class="text-center">Test MAE</th>
+                                <th class="text-center">Test R²</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in model_comparison %}
+                            <tr {% if row.Model == best_model %}class="table-success"{% endif %}>
+                                <td>
+                                    <strong>{{ row.Model }}</strong>
+                                    {% if row.Model == best_model %}
+                                    <span class="badge bg-warning badge-modern ms-1"><i class="bi bi-trophy-fill me-1"></i>Best</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">{{ "%.2f"|format(row.Train_RMSE) }}</td>
+                                <td class="text-center">{{ "%.2f"|format(row.Train_MAE) }}</td>
+                                <td class="text-center">{{ "%.4f"|format(row.Train_R2) }}</td>
+                                <td class="text-center"><strong>{{ "%.2f"|format(row.Val_RMSE) }}</strong></td>
+                                <td class="text-center">{{ "%.2f"|format(row.Val_MAE) }}</td>
+                                <td class="text-center">{{ "%.4f"|format(row.Val_R2) }}</td>
+                                <td class="text-center">{{ "%.2f"|format(row.Test_RMSE) }}</td>
+                                <td class="text-center">{{ "%.2f"|format(row.Test_MAE) }}</td>
+                                <td class="text-center">{{ "%.4f"|format(row.Test_R2) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ===== TEST PREDICTIONS COMPARISON ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-graph-up-arrow" style="color:#2c3e50;"></i>Model Predictions Comparison
+                </h2>
+                <p class="text-muted mb-4">
+                    Actual vs Predicted Total Amount — Random sample of 50 rows from the test set.
+                </p>
+
+                {% if test_predictions %}
+                <div class="table-responsive mb-4">
+                    <table class="table table-modern table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="text-end">Actual ($)</th>
+                                <th class="text-end">Linear Reg.</th>
+                                <th class="text-end">Random Forest</th>
+                                <th class="text-end">Grad. Boosting</th>
+                                <th class="text-end">Extra Trees</th>
+                                <th class="text-end">LightGBM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in test_predictions %}
+                            <tr>
+                                <td><small class="text-muted">{{ loop.index }}</small></td>
+                                <td class="text-end fw-bold">${{ "{:,.2f}".format(row.Actual) }}</td>
+                                <td class="text-end">${{ "{:,.2f}".format(row['Linear Regression']) }}</td>
+                                <td class="text-end">${{ "{:,.2f}".format(row['Random Forest']) }}</td>
+                                <td class="text-end">${{ "{:,.2f}".format(row['Gradient Boosting']) }}</td>
+                                <td class="text-end">${{ "{:,.2f}".format(row['Extra Trees']) }}</td>
+                                <td class="text-end">${{ "{:,.2f}".format(row['LightGBM']) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='model_predictions_comparison.png') }}"
+                         alt="Model Predictions Comparison" class="plot-image">
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- ===== COMPARE MODEL PREDICTIONS FOR USER INPUT ===== -->
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="bi bi-people-fill" style="color:#8e44ad;"></i>Compare All Model Predictions
+                </h2>
+                <p class="text-muted mb-4">
+                    Predicted CLV for the last submitted customer input across all 5 trained models.
+                </p>
+
+                {% if result and result.all_predictions %}
+
+                    <div class="alert alert-light alert-modern">
+                        <strong>Input used:</strong>
+                        {% for k, v in result.inputs.items() %}
+                        <span class="feature-tag ms-1">{{ k }}: <strong>{{ v }}</strong></span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="table-responsive mb-4">
+                        <table class="table table-modern table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Model</th>
+                                    <th class="text-end">Predicted CLV ($)</th>
+                                    <th class="text-center">vs Best Model</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set best_pred = result.all_predictions[0].prediction %}
+                                {% for row in result.all_predictions %}
+                                {% set i = loop.index0 %}
+                                <tr {% if i == 0 %}class="table-success"{% endif %}>
+                                    <td>{{ loop.index }}</td>
+                                    <td>
+                                        <strong>{{ row.name }}</strong>
+                                        {% if i == 0 %}<span class="badge bg-warning badge-modern ms-1"><i class="bi bi-trophy-fill me-1"></i>Best</span>{% endif %}
+                                    </td>
+                                    <td class="text-end"><strong>${{ "{:,.2f}".format(row.prediction) }}</strong></td>
+                                    <td class="text-center">
+                                        {% if i == 0 %}
+                                            <span class="badge bg-success badge-modern">Reference</span>
+                                        {% else %}
+                                            {% set diff = row.prediction - best_pred %}
+                                            <span class="badge {{ 'bg-primary' if diff > 0 else 'bg-secondary' }} badge-modern">
+                                                {{ '+' if diff > 0 else '' }}${{ "{:,.2f}".format(diff) }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Bar chart -->
+                    {% set ns = namespace(max_pred=0.01) %}
+                    {% for row in result.all_predictions %}
+                        {% if row.prediction > ns.max_pred %}{% set ns.max_pred = row.prediction %}{% endif %}
+                    {% endfor %}
+                    <div class="pred-bar-section">
+                        {% for row in result.all_predictions %}
+                        {% set bar_pct = (row.prediction / ns.max_pred * 100) | round | int %}
+                        <div class="pred-bar-row">
+                            <div class="pred-bar-label">{{ row.name }}</div>
+                            <div class="pred-bar-track">
+                                <div class="pred-bar-fill" style="width: {{ bar_pct }}%"></div>
+                            </div>
+                            <div class="pred-bar-val">${{ "{:,.2f}".format(row.prediction) }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+
+                    <div class="alert alert-info alert-modern">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        No prediction yet. Go to the <a href="{{ url_for('index') }}" class="alert-link">Home page</a>,
+                        fill the form, and click <strong>Predict CLV</strong>. Then come back here to compare all model predictions.
+                    </div>
+
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-bottom">
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+            <div class="footer-content">
+                <p class="mb-0">
+                    <i class="bi bi-c-circle me-1"></i>2025 Customer Lifetime Value Predictor
+                    <span class="mx-2">|</span>
+                    Machine Learning Project
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

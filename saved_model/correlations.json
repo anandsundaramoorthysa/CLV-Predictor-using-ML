@@ -1,0 +1,44 @@
+[
+  {
+    "feature": "Total_Purchases",
+    "pearson": 0.6491,
+    "spearman": 0.651,
+    "interpretation": "Moderate Positive"
+  },
+  {
+    "feature": "Age",
+    "pearson": 0.0224,
+    "spearman": 0.0282,
+    "interpretation": "Very Weak Positive"
+  },
+  {
+    "feature": "Income",
+    "pearson": 0.0025,
+    "spearman": 0.0005,
+    "interpretation": "Very Weak Positive"
+  },
+  {
+    "feature": "Shipping_Method",
+    "pearson": -0.0007,
+    "spearman": -0.0012,
+    "interpretation": "Very Weak Negative"
+  },
+  {
+    "feature": "Gender",
+    "pearson": -0.0006,
+    "spearman": -0.0004,
+    "interpretation": "Very Weak Negative"
+  },
+  {
+    "feature": "Product_Category",
+    "pearson": -0.0004,
+    "spearman": -0.0003,
+    "interpretation": "Very Weak Negative"
+  },
+  {
+    "feature": "Payment_Method",
+    "pearson": -0.0003,
+    "spearman": 0.0003,
+    "interpretation": "Very Weak Negative"
+  }
+]

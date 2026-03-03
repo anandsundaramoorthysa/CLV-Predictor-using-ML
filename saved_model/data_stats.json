@@ -1,0 +1,21 @@
+{
+  "total_rows": 299606,
+  "target_mean": 1367.48,
+  "target_std": 1128.79,
+  "target_min": 10.0,
+  "target_max": 4999.63,
+  "target_p25": 438.72,
+  "target_p50": 1040.94,
+  "target_p75": 2029.76,
+  "source": "new_retail_data.csv",
+  "features": [
+    "Age",
+    "Gender",
+    "Income",
+    "Total_Purchases",
+    "Product_Category",
+    "Payment_Method",
+    "Shipping_Method"
+  ],
+  "target": "Total_Amount"
+}

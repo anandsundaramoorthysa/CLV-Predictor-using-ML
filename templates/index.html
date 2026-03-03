@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Lifetime Value Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-top">
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+            <a class="navbar-brand-custom" href="/">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>CLV Predictor</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-nav-custom ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">
+                            <i class="bi bi-house-door-fill me-2"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">
+                            <i class="bi bi-info-circle-fill me-2"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h1 class="hero-title">
+                                <i class="bi bi-person-badge-fill me-3"></i>
+                                Customer Lifetime Value Predictor
+                            </h1>
+                            <p class="hero-subtitle">
+                                Predict how much a customer is likely to spend using machine learning.
+                                Enter customer details below to get an instant CLV prediction.
+                            </p>
+                        </div>
+                        <div class="col-lg-4 d-none d-lg-block">
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-label">Best Model</div>
+                                    <div class="metric-value" style="font-size:1rem;">{{ best_model }}</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">Val R²</div>
+                                    <div class="metric-value">{{ "%.4f"|format(best_model_r2) }}</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">Val RMSE</div>
+                                    <div class="metric-value">${{ best_model_rmse }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two-column layout: form + result -->
+            <div class="row g-4">
+
+                <!-- PREDICTION FORM -->
+                <div class="col-lg-6">
+                    <div class="card-modern shadow-lg h-100">
+                        <div class="card-header-modern">
+                            <h3><i class="bi bi-person-fill me-2"></i>Customer Details</h3>
+                        </div>
+                        <div class="card-body-modern">
+                            <form action="{{ url_for('predict') }}" method="POST">
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="age" class="form-label fw-semibold">
+                                            <i class="bi bi-calendar3 me-1 text-primary"></i>Age
+                                        </label>
+                                        <input type="number" id="age" name="age"
+                                               class="form-control input-modern"
+                                               placeholder="e.g. 35" min="1" max="120" required
+                                               value="{{ result.inputs['Age'] if result else '' }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="total_purchases" class="form-label fw-semibold">
+                                            <i class="bi bi-bag-fill me-1 text-primary"></i>Total Purchases
+                                        </label>
+                                        <input type="number" id="total_purchases" name="total_purchases"
+                                               class="form-control input-modern"
+                                               placeholder="e.g. 12" min="0" required
+                                               value="{{ result.inputs['Total Purchases'] if result else '' }}">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="gender" class="form-label fw-semibold">
+                                            <i class="bi bi-person-fill me-1 text-primary"></i>Gender
+                                        </label>
+                                        <select id="gender" name="gender" class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for g in options['Gender'] %}
+                                            <option value="{{ g }}"
+                                                {{ 'selected' if result and result.inputs['Gender'] == g else '' }}>
+                                                {{ g }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="income" class="form-label fw-semibold">
+                                            <i class="bi bi-cash-stack me-1 text-primary"></i>Income Level
+                                        </label>
+                                        <select id="income" name="income" class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for i in options['Income'] %}
+                                            <option value="{{ i }}"
+                                                {{ 'selected' if result and result.inputs['Income'] == i else '' }}>
+                                                {{ i }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="product_category" class="form-label fw-semibold">
+                                        <i class="bi bi-grid-fill me-1 text-primary"></i>Product Category
+                                    </label>
+                                    <select id="product_category" name="product_category"
+                                            class="form-select input-modern" required>
+                                        <option value="">-- Select --</option>
+                                        {% for p in options['Product_Category'] %}
+                                        <option value="{{ p }}"
+                                            {{ 'selected' if result and result.inputs['Product Category'] == p else '' }}>
+                                            {{ p }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="payment_method" class="form-label fw-semibold">
+                                            <i class="bi bi-credit-card-fill me-1 text-primary"></i>Payment Method
+                                        </label>
+                                        <select id="payment_method" name="payment_method"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for pm in options['Payment_Method'] %}
+                                            <option value="{{ pm }}"
+                                                {{ 'selected' if result and result.inputs['Payment Method'] == pm else '' }}>
+                                                {{ pm }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="shipping_method" class="form-label fw-semibold">
+                                            <i class="bi bi-truck me-1 text-primary"></i>Shipping Method
+                                        </label>
+                                        <select id="shipping_method" name="shipping_method"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for sm in options['Shipping_Method'] %}
+                                            <option value="{{ sm }}"
+                                                {{ 'selected' if result and result.inputs['Shipping Method'] == sm else '' }}>
+                                                {{ sm }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="customer_segment" class="form-label fw-semibold">
+                                            <i class="bi bi-people-fill me-1 text-primary"></i>Customer Segment
+                                        </label>
+                                        <select id="customer_segment" name="customer_segment"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for cs in options['Customer_Segment'] %}
+                                            <option value="{{ cs }}"
+                                                {{ 'selected' if result and result.inputs['Customer Segment'] == cs else '' }}>
+                                                {{ cs }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="feedback" class="form-label fw-semibold">
+                                            <i class="bi bi-chat-square-text-fill me-1 text-primary"></i>Feedback
+                                        </label>
+                                        <select id="feedback" name="feedback"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for fb in options['Feedback'] %}
+                                            <option value="{{ fb }}"
+                                                {{ 'selected' if result and result.inputs['Feedback'] == fb else '' }}>
+                                                {{ fb }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="month" class="form-label fw-semibold">
+                                            <i class="bi bi-calendar-month me-1 text-primary"></i>Month of Purchase
+                                        </label>
+                                        <select id="month" name="month"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for m in options['Month'] %}
+                                            <option value="{{ m }}"
+                                                {{ 'selected' if result and result.inputs['Month'] == m else '' }}>
+                                                {{ m }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="ratings" class="form-label fw-semibold">
+                                            <i class="bi bi-star-fill me-1 text-primary"></i>Rating (1–5)
+                                        </label>
+                                        <input type="number" id="ratings" name="ratings"
+                                               class="form-control input-modern"
+                                               placeholder="e.g. 4.0" min="1" max="5" step="0.5" required
+                                               value="{{ result.inputs['Ratings'] if result else '' }}">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="product_brand" class="form-label fw-semibold">
+                                            <i class="bi bi-tag-fill me-1 text-primary"></i>Product Brand
+                                        </label>
+                                        <select id="product_brand" name="product_brand"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for pb in options['Product_Brand'] %}
+                                            <option value="{{ pb }}"
+                                                {{ 'selected' if result and result.inputs['Product Brand'] == pb else '' }}>
+                                                {{ pb }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="product_type" class="form-label fw-semibold">
+                                            <i class="bi bi-box-seam me-1 text-primary"></i>Product Type
+                                        </label>
+                                        <select id="product_type" name="product_type"
+                                                class="form-select input-modern" required>
+                                            <option value="">-- Select --</option>
+                                            {% for pt in options['Product_Type'] %}
+                                            <option value="{{ pt }}"
+                                                {{ 'selected' if result and result.inputs['Product Type'] == pt else '' }}>
+                                                {{ pt }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary-modern btn-modern w-100 mt-4 py-3 fs-5">
+                                    <i class="bi bi-lightning-charge-fill me-2"></i>Predict CLV
+                                </button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESULT PANEL -->
+                <div class="col-lg-6">
+                    <div class="card-modern shadow-lg h-100">
+                        <div class="card-header-modern gold">
+                            <h3><i class="bi bi-bar-chart-fill me-2"></i>Prediction Result</h3>
+                        </div>
+                        <div class="card-body-modern">
+
+                            {% if result %}
+
+                                <div class="prediction-display">
+                                    <div class="prediction-label">Predicted Customer Lifetime Value</div>
+                                    <h2 class="prediction-value-large">${{ "{:,.2f}".format(result.best_prediction) }}</h2>
+                                </div>
+
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="clv-badge" style="background: {{ result.label_color }};">
+                                        <i class="bi bi-award-fill me-2"></i>{{ result.label }}
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                                    <div class="info-badge shadow-sm">
+                                        <i class="bi bi-cpu-fill text-primary"></i>
+                                        <span>Model: <strong class="text-primary">{{ best_model }}</strong></span>
+                                    </div>
+                                </div>
+
+                                <!-- Input Summary -->
+                                <div class="input-summary mb-4">
+                                    <h6 class="fw-bold text-muted mb-3">
+                                        <i class="bi bi-list-check me-2"></i>Your Inputs
+                                    </h6>
+                                    {% for k, v in result.inputs.items() %}
+                                    <div class="input-row">
+                                        <span class="input-key">{{ k }}</span>
+                                        <span class="input-val">{{ v }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <a href="{{ url_for('about') }}" class="btn btn-outline-primary flex-fill">
+                                        <i class="bi bi-bar-chart-line me-2"></i>All Model Predictions
+                                    </a>
+                                    <a href="{{ url_for('reset') }}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-arrow-counterclockwise me-1"></i>Clear
+                                    </a>
+                                </div>
+
+                            {% else %}
+
+                                <div class="result-empty text-center py-5">
+                                    <i class="bi bi-graph-up" style="font-size:4rem; color:#dee2e6;"></i>
+                                    <h5 class="text-muted mt-3">No Prediction Yet</h5>
+                                    <p class="text-muted">Fill in the customer details form and click
+                                        <strong>Predict CLV</strong> to see results here.</p>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end row -->
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-bottom">
+        <div class="container-fluid px-3 px-md-4 px-lg-5">
+            <div class="footer-content">
+                <p class="mb-0">
+                    <i class="bi bi-c-circle me-1"></i>2025 Customer Lifetime Value Predictor
+                    <span class="mx-2">|</span>
+                    Machine Learning Project
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

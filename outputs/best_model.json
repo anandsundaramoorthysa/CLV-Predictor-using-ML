@@ -1,0 +1,5 @@
+{
+  "best_model": "Linear Regression",
+  "best_val_rmse": 857.9274,
+  "best_val_mae": 857.9274
+}

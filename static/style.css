@@ -1,0 +1,628 @@
+:root {
+    --primary-color: #1e3c72;
+    --primary-light: #2a5298;
+    --accent-color: #e74c3c;
+    --accent-light: #fdecea;
+    --success-color: #27ae60;
+    --info-color: #2980b9;
+    --danger-color: #c0392b;
+    --gold-color: #c0392b;
+    --text-primary: #2c3e50;
+    --text-secondary: #6c757d;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --border-color: #dee2e6;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.07);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.10);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.13);
+    --border-radius: 16px;
+    --border-radius-sm: 12px;
+    --transition: all 0.25s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+.navbar-top {
+    background: var(--primary-color);
+    box-shadow: var(--shadow-md);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.navbar-brand-custom {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white !important;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.navbar-brand-custom i {
+    color: #f0c060;
+    font-size: 1.75rem;
+}
+
+.navbar-nav-custom .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+    margin: 0 0.25rem;
+}
+
+.navbar-nav-custom .nav-link:hover,
+.navbar-nav-custom .nav-link.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: white !important;
+}
+
+/* ============================================================
+   MAIN CONTENT
+============================================================ */
+.main-content {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+.hero-section {
+    background: var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-title {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.metric-card {
+    background: #ffffff;
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.metric-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   CARDS
+============================================================ */
+.card-modern {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    border: none;
+    overflow: hidden;
+    transition: var(--transition);
+    margin-bottom: 2rem;
+}
+
+.card-modern:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.card-modern.shadow-lg {
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.card-header-modern {
+    background: var(--primary-light);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    border: none;
+}
+
+.card-header-modern.gold {
+    background: var(--gold-color);
+}
+
+.card-header-modern.success {
+    background: var(--success-color);
+}
+
+.card-header-modern.info {
+    background: var(--info-color);
+}
+
+.card-header-modern.danger {
+    background: var(--danger-color);
+}
+
+.card-header-modern h2,
+.card-header-modern h3,
+.card-header-modern h5 {
+    margin: 0;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.card-body-modern {
+    padding: 2rem;
+}
+
+/* ============================================================
+   FORM INPUTS
+============================================================ */
+.input-modern {
+    border: 2px solid #e9ecef;
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--bg-white);
+}
+
+.input-modern:focus {
+    border-color: var(--primary-light);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.12);
+}
+
+.form-select.input-modern {
+    cursor: pointer;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn-modern {
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    transition: var(--transition);
+    letter-spacing: 0.03em;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary-modern {
+    background: var(--primary-light);
+    color: white;
+}
+
+.btn-primary-modern:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================================
+   PREDICTION RESULT
+============================================================ */
+.prediction-display {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.prediction-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.prediction-value-large {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.clv-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-white);
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+/* Input Summary */
+.input-summary {
+    background: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+    padding: 1.25rem;
+    border: 1px solid var(--border-color);
+}
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.input-row:last-child {
+    border-bottom: none;
+}
+
+.input-key {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.input-val {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ============================================================
+   TABLES
+============================================================ */
+.table-modern {
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    background: var(--bg-white);
+}
+
+.table-modern thead {
+    background: var(--primary-light);
+    color: white;
+}
+
+.table-modern thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.table-modern tbody tr {
+    transition: var(--transition);
+}
+
+.table-modern tbody tr:hover {
+    background: var(--bg-light);
+}
+
+/* ============================================================
+   SECTION CARDS (about page)
+============================================================ */
+.section-card {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--accent-color);
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ============================================================
+   ACCORDION
+============================================================ */
+.accordion-modern .accordion-button {
+    background: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    border: none;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 0.5rem;
+    border-left: 4px solid transparent;
+    color: var(--text-primary);
+}
+
+.accordion-modern .accordion-button:not(.collapsed) {
+    background: var(--primary-light);
+    color: white;
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--accent-color);
+}
+
+.accordion-modern .accordion-button:not(.collapsed)::after {
+    filter: invert(1);
+}
+
+/* ============================================================
+   BADGES
+============================================================ */
+.badge-modern {
+    padding: 0.4rem 0.85rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* ============================================================
+   ALERTS
+============================================================ */
+.alert-modern {
+    border-radius: var(--border-radius-sm);
+    border: none;
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   FEATURE TAGS
+============================================================ */
+.feature-tag {
+    display: inline-block;
+    background: #eef2f8;
+    border: 1px solid #c8d6ea;
+    border-radius: 20px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0.25rem;
+    color: var(--primary-color);
+}
+
+/* ============================================================
+   METRIC CARD STATIC (about page stats grid)
+============================================================ */
+.metric-card-static {
+    background: #f8f9fa;
+    border-radius: var(--border-radius-sm);
+    padding: 1.25rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    height: 100%;
+}
+
+.metric-card-static:hover {
+    border-color: var(--primary-light);
+    box-shadow: var(--shadow-sm);
+    background: #eef2f8;
+}
+
+.metric-value-static {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.metric-value-static.small {
+    font-size: 0.85rem;
+    word-break: break-all;
+}
+
+/* ============================================================
+   PREDICTION BAR CHART (compare model predictions)
+============================================================ */
+.pred-bar-section {
+    background: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.pred-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pred-bar-row:last-child {
+    margin-bottom: 0;
+}
+
+.pred-bar-label {
+    min-width: 160px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.pred-bar-track {
+    flex: 1;
+    background: #dde3ec;
+    border-radius: 50px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.pred-bar-fill {
+    height: 100%;
+    background: var(--primary-light);
+    border-radius: 50px;
+    transition: width 0.8s ease;
+}
+
+.pred-bar-val {
+    min-width: 90px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: right;
+}
+
+/* ============================================================
+   PLOT IMAGES
+============================================================ */
+.plot-image {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer-bottom {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    border-top: 3px solid var(--accent-color);
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-content p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1.5rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .card-body-modern {
+        padding: 1.5rem;
+    }
+
+    .navbar-brand-custom {
+        font-size: 1.125rem;
+    }
+
+    .pred-bar-label {
+        min-width: 110px;
+        font-size: 0.8rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-content {
+        padding: 1.5rem 0;
+    }
+
+    .card-body-modern {
+        padding: 1.25rem;
+    }
+
+    .section-card {
+        padding: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.4rem;
+    }
+
+    .pred-bar-label {
+        min-width: 90px;
+        font-size: 0.75rem;
+    }
+}

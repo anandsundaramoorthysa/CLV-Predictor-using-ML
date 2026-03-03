@@ -1,0 +1,47 @@
+# Reduce Docker build context for Hugging Face Spaces
+# Do NOT ignore models/, outputs/, saved_model/, templates/, static/
+
+.git
+.gitignore
+.gitattributes
+
+# Virtual env and caches
+venv/
+.venv/
+env/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# IDE and local config
+.vscode/
+.idea/
+.cursor/
+.claude/
+.env
+.env.*
+*.local
+
+# Source data (not needed in image; app uses precomputed outputs)
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+
+# Dev and docs (optional: keep README if you want it in image)
+*.md
+!README.md
+*.log
+logs/
+tmp/
+temp/
+.DS_Store
+
+# Phase scripts (training); not needed at runtime
+phase1_data_preprocessing.py
+phase2_feature_engineering.py
+phase3_train_test_split.py
+phase4_model_training.py
+generate_analysis_plots.py

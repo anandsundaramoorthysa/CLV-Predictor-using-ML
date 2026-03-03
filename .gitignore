@@ -1,4 +1,11 @@
+# =============================================================================
+# Hugging Face Spaces: commit models/, outputs/, saved_model/, and static/*.png
+# so the Space runs without external storage. Source data (*.csv) stays ignored.
+# =============================================================================
+
+# =============================================================================
 # Python
+# =============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -23,61 +30,62 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Virtual Environment
+# =============================================================================
+# Virtual environments
+# =============================================================================
 venv/
 env/
 ENV/
 env.bak/
 venv.bak/
 .venv/
+.python-version
 
+# =============================================================================
 # Flask
+# =============================================================================
 instance/
 .webassets-cache
 
-# Uploaded files
-uploads/
+# =============================================================================
+# Source data only (large / sensitive; not needed at runtime on Hugging Face)
+# Models, outputs, and generated static images ARE committed for HF Spaces.
+# =============================================================================
 *.csv
 *.xlsx
 *.xls
+*.parquet
+*.feather
 
-# Generated plots and images
-static/plots/*.png
-static/plots/*.jpg
-static/plots/*.jpeg
-static/plots/*.gif
-static/plots/*.svg
+# =============================================================================
+# Secrets & config
+# =============================================================================
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+*.pem
+*.key
+secrets/
+config/local*.py
+**/settings.local.json
+**/secrets.json
 
-# IDE
+# =============================================================================
+# IDE & editor
+# =============================================================================
 .vscode/
 .idea/
+.cursor/
+.claude/
 *.swp
 *.swo
 *~
-.DS_Store
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pytest
-.pytest_cache/
-.coverage
-htmlcov/
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
+# =============================================================================
 # OS
+# =============================================================================
 .DS_Store
 .DS_Store?
 ._*
@@ -87,13 +95,41 @@ ehthumbs.db
 Thumbs.db
 Desktop.ini
 
-# Logs
+# =============================================================================
+# Testing & quality
+# =============================================================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+noxfile.bak
+
+# =============================================================================
+# Type checkers
+# =============================================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# =============================================================================
+# Jupyter
+# =============================================================================
+.ipynb_checkpoints/
+
+# =============================================================================
+# Logs & runtime
+# =============================================================================
 *.log
 logs/
+tmp/
+temp/
+.cache/
 
-# Temporary files
+# =============================================================================
+# Temporary / backup
+# =============================================================================
 *.tmp
 *.temp
 *.bak
-*.swp
-
+*.backup
